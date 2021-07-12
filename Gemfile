@@ -5,6 +5,7 @@ gem "jekyll-theme-chirpy", "~> 4.0", ">= 4.0.2"
 group :jekyll_plugins do
   # If you have any plugins, put them here!
   # gem "jekyll-xxx", "~> x.y"
+  gem 'jekyll-admin', group: :jekyll_plugins
 end
 
 group :test do
@@ -20,5 +21,3 @@ end
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
-
-gem 'github-pages'

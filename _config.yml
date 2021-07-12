@@ -162,3 +162,9 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+ignore_theme_config: true
+
+jekyll_admin:
+  hidden_links:
+    - configuration
