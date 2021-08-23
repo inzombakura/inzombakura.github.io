@@ -39,21 +39,21 @@ Lets hop into a browser and check out the web server. Visiting it, we see there 
 
 > 10.10.10.245
 
-![tab 1](https://i.ibb.co/mHBfxTP/tab1.jpg)
+![tab 1](/assets/img/tab1.jpg)
 *A visual representation of security events, failed login attempts, and port scans over the last 24 hours at this ip address.*
 > 10.10.10.245/data/0
 
-![tab 2](https://i.ibb.co/xD8S7N0/tab2.jpg)
+![tab 2](/assets/img/tab2.jpg)
 *Pressing the second tab for the security snapshot goes to /capture. This in turn redirects to /data/ followed by a number. We can manually change this to 0 or any other number. On this page we can also download a pcap file corresponding to this number.*
 
 Presumably we will need to investigate some of these pcap files with Wireshark as the name of the box is "Cap". Also note that pressing download redirects to /download/0. This way we can download pcap files directly from a url including indices which are missing data pages like at /data/9.
 > 10.10.10.245/ip
 
-![tab 3](https://i.ibb.co/g37kVFT/tab3.jpg)
+![tab 3](/assets/img/tab3.jpg)
 *The output of the ip shell command at 10.10.10.245*
 > 10.10.10.245/netstat
 
-![tab 4](https://i.ibb.co/4jZ33Rr/tab4.jpg)
+![tab 4](/assets/img/tab4.jpg)
 *The output of the netstat shell command at 10.10.10.245*
 
 After investigation, it seems that the incrementing numbers after /data/ represent portions of the network log in chronological order. Lets start at 10.10.10.245/download/0 and download 0.pcap all the way to 10.10.10.245/download/25 for 25.pcap so we can read any part of the log with Wireshark. This can be done with this simple curl one liner:
@@ -65,7 +65,7 @@ curl http://10.10.10.245/download/[0-25] -O
 ## Packet Analysis
 First, let's open 0.pcap from Wireshark.
 Sorting the packets by protocol and examining the FTP traffic we can immediately see an unencrypted FTP login.
-![Wireshark log](https://i.ibb.co/HzWMgDV/wire0.jpg)
+![Wireshark log](/assets/img/wire0.jpg)
 From this traffic we get the following username and password to login to the FTP server.
 
 > USER nathan
