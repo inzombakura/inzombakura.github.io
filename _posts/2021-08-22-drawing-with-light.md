@@ -1,8 +1,10 @@
 ---
+title: Drawing With Light
 layout: post
-title: 'Drawing With Light'
 date: '2021-08-23 01:09:30 -0400'
-categories: art
+categories:
+- Art
+- Projects
 tags: javascript canvas
 ---
 
