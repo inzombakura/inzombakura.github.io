@@ -168,9 +168,9 @@
       </h1>
       <!-- image-box -->
       <div class="image-box">
-        <img class="image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width="0" height="0" alt="" />
+        <img class="image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="alt="" />
         <!-- label-text -->
-        <p class="label-text">No image</p>
+        <p class="label-text">Unidentified</p>
       </div>
 
       <form id="tia" method="post" enctype="multipart/form-data">
@@ -210,17 +210,20 @@
         var request = new XMLHttpRequest();
         request.open('POST', url);
         submitBtn.innerText = "Loading";
+        submitBtn.style.cursor = "auto";
         request.onload = function() { // request successful
         // we can use server response to our request now
           if (request.status === 200) {
             labelText.innerText = request.responseText;
           }
           submitBtn.innerText = "Submit";
+          submitBtn.style.cursor = "pointer";
         };
 
         request.onerror = function() {
           labelText.innerText = "Unidentified";
           submitBtn.innerText = "Submit";
+          submitBtn.style.cursor = "pointer";
         };
 
         request.send(new FormData(event.target)); // create FormData from form that triggered event
