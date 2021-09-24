@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Cataract Identifier</title>
+  </head>
+  <style>
+      /* common styles */
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-shadow:
+        1.4px 1.4px 0 #ffffff,
+        1.6px 1.6px 0 #ffffff,
+        1.8px 1.8px 0 #ffffff,
+        2px 2px 0 #ffffff,
+        2.2px 2.2px 0 #ffffff,
+        2.4px 2.4px 0 #ffffff,
+        2.6px 2.6px 0 #ffffff,
+        2.8px 2.8px 0 #ffffff,
+        3px 3px 0 #ffffff,
+        3.2px 3.2px 0 #ffffff,
+        3.4px 3.4px 0 #ffffff,
+        3.6px 3.6px 0 #ffffff,
+        3.8px 3.8px 0 #ffffff,
+        4px 4px 0 #ffffff,
+        4.2px 4.2px 0 #ffffff,
+        4.4px 4.4px 0 #ffffff,
+        4.6px 4.6px 0 #ffffff,
+        4.8px 4.8px 0 #ffffff,
+        5px 5px 0 #ffffff,
+        5.2px 5.2px 0 #ffffff,
+        5.4px 5.4px 0 #ffffff,
+        5.6px 5.6px 0 #ffffff,
+        5.8px 5.8px 0 #ffffff,
+        6px 6px 0 #ffffff,
+        6.2px 6.2px 0 #ffffff,
+        6.4px 6.4px 0 #ffffff,
+        6.6px 6.6px 0 #ffffff,
+        6.8px 6.8px 0 #ffffff,
+        7px 7px 0 #ffffff,
+        7.2px 7.2px 0 #ffffff,
+        7.4px 7.4px 0 #ffffff,
+        7.6px 7.6px 0 #ffffff,
+        7.8px 7.8px 0 #ffffff,
+        8px 8px 0 #ffffff,
+        8.2px 8.2px 0 #ffffff,
+        8.4px 8.4px 0 #ffffff,
+        8.6px 8.6px 0 #ffffff,
+        8.8px 8.8px 0 #ffffff,
+        9px 9px 0 #ffffff,
+        9.2px 9.2px 0 #ffffff,
+        9.4px 9.4px 0 #ffffff,
+        9.6px 9.6px 0 #ffffff,
+        9.8px 9.8px 0 #ffffff,
+        10px 10px 0 #ffffff;
+      color: #303030;
+      font-size: 100px;
+      line-height: 1;
+      text-align: center;
+      transform: translateY(-50%);
+      display: block;
+    }
+    /* body */
+    body {
+      width: 100vw; /* 100% viewport width */
+      height: 100vh; /* 100% viewport height */
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center; /* horizontally center */
+      align-items: center; /* vertically center */
+      background: linear-gradient(to right, #6b060b, #570487); /* background color */
+      font-size: 1.2rem; /* default font-size */
+      font-family: sans-serif;
+    }
+
+    /* .container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* now this is for vertically center. Because of flex-direction: column; */
+      align-items: center; /* horizontally center */
+    }
+
+    /* .image-box */
+    .image-box {
+      background-color: #fff;
+      padding: 15px; /* inner spacing */
+      margin: 30px 0px 10px 0px; /* outer spacing. Order -> top right bottom left*/
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* .image */
+    .image {
+      width: 230px; /* the more you increase width, the more precise the prediction will be! */
+      margin-bottom: 15px;
+    }
+
+    /* .label-text */
+    .label-text {
+      font-size: 1.5rem;
+      font-family: cursive;
+      max-width: 200px;
+      margin-bottom: 7px;
+    }
+
+    /* .upload-btn styles will go here */
+    /* hide the default upload button */
+    .upload-btn::-webkit-file-upload-button {
+      display: none;
+    }
+
+    /* create our own upload button */
+    .upload-btn::before {
+      content: 'Upload Image';
+      display: block;
+      background-color: #6dd1b3;
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 5px 8px;
+      margin: 15px 0px 0px 0px;
+      border-radius: 3px; /* for curved edges */
+      border: none;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, 0.5);
+    }
+
+    .submit-btn {
+      display: block;
+      background-color: #6dd1b3;
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 5px;
+      margin: 10px 0px 0px 0px;
+      outline: none;
+      cursor: pointer;
+      border-radius: 3px;
+      box-shadow: 2px 3px 9px rgba(0, 0, 0, 0.5);
+    }
+
+    /* remove the "outline" and "border" */
+    input[type="file" i] {
+      outline: none;
+      border: none;
+    }
+  </style>
+  <body>
+    <!-- container -->
+    <div class="container">
+      <h1>
+        <div class = "inline-block-left" align = "left">
+        </div>
+        <center>
+          <div class = "inline-block-middle" align = "center">
+            Cataract Identifier
+          </div>
+        </center>
+        <div class = "inline-block-right" align = "right">
+        </div>
+      </h1>
+      <!-- image-box -->
+      <div class="image-box">
+        <img class="image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />
+        <!-- label-text -->
+        <p class="label-text">Unidentified</p>
+      </div>
+
+      <form id="cataracter" method="post" enctype="multipart/form-data">
+        <input type="file" name="eye" class="upload-btn"/>
+        <br>
+        <input type="submit" id="submits" style="display:none;">
+        <label for="submits" class="submit-btn">Submit</label>
+      </form>
+    </div>
+
+    <!-- Link to our Javascript file  -->
+    <script>
+      // grab reference for needed elements
+      // .image
+      const image = document.querySelector('.image');
+      // .label-text
+      const labelText = document.querySelector('.label-text');
+      // .upload-btn will go here
+      const uploadBtn = document.querySelector('.upload-btn');
+      // .submit-btn will go here
+      const submitBtn = document.querySelector('.submit-btn');
+
+      /* attach a 'change' eventListener to .upload-btn */
+      uploadBtn.addEventListener('change', function (event) {
+        // check if user had selected any file
+        if (event.target.files[0]) {
+          /* create an ObjectURL for the selected/uploaded file */
+          const objectURL = URL.createObjectURL(event.target.files[0]);
+
+          /* then replace previous .image on DOM with the new file the user had uploaded */
+          image.src = objectURL;
+        }
+      });
+
+      function formSubmit(event) {
+        var url = "https://amousavi.pythonanywhere.com/";
+        var request = new XMLHttpRequest();
+        request.open('POST', url);
+        submitBtn.innerText = "Loading";
+        submitBtn.style.cursor = "auto";
+        request.onload = function() { // request successful
+        // we can use server response to our request now
+          if (request.status === 200) {
+            labelText.innerText = request.responseText;
+          }
+          submitBtn.innerText = "Submit";
+          submitBtn.style.cursor = "pointer";
+        };
+
+        request.onerror = function() {
+          labelText.innerText = "Unidentified";
+          submitBtn.innerText = "Submit";
+          submitBtn.style.cursor = "pointer";
+        };
+
+        request.send(new FormData(event.target)); // create FormData from form that triggered event
+        event.preventDefault();
+      }
+
+      // and you can attach form submit event like this for example
+      function attachFormSubmitEvent(formId){
+        document.getElementById(formId).addEventListener("submit", formSubmit);
+      }
+
+      attachFormSubmitEvent('cataracter');
+    </script>
+  </body>
+</html>
