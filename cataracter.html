@@ -73,6 +73,7 @@
       display: flex;
       justify-content: center; /* horizontally center */
       align-items: center; /* vertically center */
+      background: linear-gradient(to right, #6b060b, #570487); /* background color */
       font-size: 1.2rem; /* default font-size */
       font-family: sans-serif;
     }
@@ -149,6 +150,15 @@
     input[type="file" i] {
       outline: none;
       border: none;
+    }
+
+    canvas.webgl {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(125deg, #03c2d5, #0283d6);
     }
   </style>
   <body>
