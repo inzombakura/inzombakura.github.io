@@ -1,8 +1,9 @@
 ---
-layout: post
 title: 'Hack The Box Writeup: Cap'
+layout: post
 date: '2021-07-29 15:12:11 -0400'
-categories: ctf
+categories:
+- CTF
 tags: htb web privesc network
 ---
 
