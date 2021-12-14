@@ -93,36 +93,46 @@ This is an example of the image produced by the model for epoch 26
 
 ## Results
 Epoch 11
+
 ![epoch 11](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e11.png)
 
 Epoch 12
+
 ![epoch 12](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e12.png)
 
 Epoch 13
+
 ![epoch 13](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e13.png)
 
 Epoch 14
+
 ![epoch 14](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e14.png)
 
 Epoch 15
+
 ![epoch 15](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e15.png)
 
 The results after the first training process for 15 epochs yielded the following results and we can see that the quality of the images are not consecutively increasing and from my understanding, Epoch 13 out of the last five epochs had the best result with the least amount of noise in comparison to the colorful galaxy center. At this stage the galaxy isn’t very detailed and more like a cloud of color, with a ton of noise and repetition of small sections, introducing patterns.
 
 Epoch 41
+
 ![epoch 41](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e41.png)
 
 Epoch 42
+
 ![epoch 42](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e42.png)
 
 Epoch 43
+
 ![epoch 43](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e43.png)
 
 Epoch 44
+
 ![epoch 44](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e44.png)
 
 And finally...
 Epoch 45
+
 ![epoch 45](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e45.png)
 
 These are the results after the second training process for an additional 35 epochs. We can see that the quality does get better and there is more detail but we can see issues with repeated patterns in Epoch 41 and 42. The last three are fairly good representations of galaxies, where Epoch 43 has a very clean image, with a detailed galaxy center with little outside noise. Epoch 44 has a bit of a problem with the patterns of the outside of the galaxy with the red spots but the galaxy center is really rich in color and detail. Epoch 45 is the combination of the last two, where the center is colorful and clear and the surrounding is pretty clean with minimal noise.
