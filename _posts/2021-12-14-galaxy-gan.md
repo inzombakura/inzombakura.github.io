@@ -1,10 +1,13 @@
 ---
 title: Galaxy GAN
 layout: post
+date: '2021-12-14 01:09:30 -0400'
 categories:
 - Projects
 tags: python keras 
 ---
+
+
 # GalaxyGAN
 
 *Created by: Armand Mousavi, Karman Singh, and Matthew Foss
