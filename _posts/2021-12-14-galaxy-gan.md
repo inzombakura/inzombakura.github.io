@@ -94,12 +94,16 @@ This is an example of the image produced by the model for epoch 26
 ## Results
 Epoch 11
 ![epoch 11](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e11.png)
+
 Epoch 12
 ![epoch 12](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e12.png)
+
 Epoch 13
 ![epoch 13](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e13.png)
+
 Epoch 14
 ![epoch 14](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e14.png)
+
 Epoch 15
 ![epoch 15](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e15.png)
 
@@ -107,12 +111,16 @@ The results after the first training process for 15 epochs yielded the following
 
 Epoch 41
 ![epoch 41](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e41.png)
+
 Epoch 42
 ![epoch 42](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e42.png)
+
 Epoch 43
 ![epoch 43](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e43.png)
+
 Epoch 44
 ![epoch 44](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e44.png)
+
 And finally...
 Epoch 45
 ![epoch 45](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e45.png)
