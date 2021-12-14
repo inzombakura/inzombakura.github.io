@@ -1,7 +1,6 @@
 ---
 title: Galaxy GAN
 layout: post
-date: '2021-12-14 04:29:33 -0400'
 categories:
 - Projects
 tags: python keras 
