@@ -69,6 +69,9 @@ As well as the model for the generator:
 ![generator model](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/generator_model.png)
 
 ## Experiments/evaluation
+
+You can check out our final notebook we used to train our model [here](https://colab.research.google.com/drive/1RdZdxvGyW6IsrBFrSRiOPHKKFHeap86g?usp=sharing)
+
 When evaluating the Generative Adversarial Network, there isn’t really an objective error score for the generated images. The images will need to subjectively be evaluated. Also the adversarial nature of the training means the generator is changing after each batch and the subjective quality of the images may improve or degrade with further updates. To handle this, first we periodically evaluate the classification accuracy of the discriminator on real and fake images, second we periodically generate many images and save them for review, and third we periodically save the generator model. If we train the GAN over many epochs, we would be able to get many snapshots of the model and choose the best models, once reviewed for performance. 
 
 We define a function for summarizing the performance of the discriminator model. This function takes a sample of real galaxy images and generates the same number of fake galaxy images with the generator model and then evaluates the classification accuracy of the discriminator model and reports the score for each sample. 
