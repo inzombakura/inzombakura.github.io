@@ -19,7 +19,7 @@ UW student project for CSE490G1*
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
 
-## Background
+## Abstract/Background
 
 A Generative Adversarial Network can be broken down into three parts: learn a generative model, train a model in an adversarial setting, and use deep neural networks. In a GAN there is the generator and the discriminator. The Generator creates fake images to input into the discriminator. The discriminator takes two images, one real and one fake. The discriminator's job is to decide whether the image is fake or real. The generative model tries to maximize the probability of fooling the discriminator while the discriminator tries to maximize the probability of the sample being from the real dataset. Pictured below is a basic representation of a GAN, credit from
 
