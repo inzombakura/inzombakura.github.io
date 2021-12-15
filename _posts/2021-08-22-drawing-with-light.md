@@ -1,7 +1,7 @@
 ---
 title: Drawing With Light
 layout: post
-date: '2021-08-23 01:09:30 -0400'
+date: '2021-08-23 01:09:30 +0800'
 categories:
 - Projects
 tags: javascript canvas
