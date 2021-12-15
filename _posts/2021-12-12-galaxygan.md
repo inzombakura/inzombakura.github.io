@@ -17,7 +17,7 @@ UW student project for CSE490G1*
 
 ## Video
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
+[![Galxy GAN video demo](http://img.youtube.com/vi/pWN0kjnHRRs/0.jpg)](https://youtu.be/pWN0kjnHRRs "Galaxy GAN")
 
 ## Abstract/Background
 
