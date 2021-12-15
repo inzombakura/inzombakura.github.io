@@ -1,10 +1,10 @@
 ---
 title: GalaxyGAN
 layout: post
+date: '2021-07-29 15:12:11 -0400'
 categories:
 - Projects
 tags: python keras 
-date: '2021-12-12 09:49:00'
 ---
 
 
