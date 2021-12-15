@@ -10,9 +10,9 @@ tags: python keras
 
 # GalaxyGAN
 
-*Created by: Armand Mousavi, Karman Singh, and Matthew Foss
+*Created by: Armand Mousavi, Karman Singh, and Matthew Foss*
 
-UW student project for CSE490G1*
+*UW student project for CSE490G1*
 
 [Try the demo out for yourself](https://colab.research.google.com/drive/1hmF0jklxkFRqLjqfthI5kmf2GB_bqQfk?usp=sharing)
 
