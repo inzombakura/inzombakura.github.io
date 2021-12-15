@@ -85,11 +85,14 @@ This is an example of the loss values on real images and fake generated images f
     >26, 136/138, d1=0.22124308, d2=0.10850765 g=2.61518002
     >26, 137/138, d1=0.18373565, d2=0.13180479 g=2.34858227
     >26, 138/138, d1=0.02594333, d2=0.20959115 g=2.79657221
+    
 This is an example of the model’s accuracy score for epoch 26 based on the discriminators ability to differentiate 
 
     >Accuracy real: 94%, fake: 100%
+    
 
 This is an example of the image produced by the model for epoch 26
+
 
 ![epoch 26](https://raw.githubusercontent.com/inzombakura/inzombakura.github.io/main/assets/img/galaxygan_e26.png)
 
