@@ -1,5 +1,7 @@
 ---
 title: Trash Material Identifier
+layout: post
+date: '2021-08-29 05:09:30 +0800'
 categories:
 - Projects
 tags:
