@@ -1,7 +1,8 @@
 #  The date format
 
-tooltip: "%a, %b %e, %Y, %l:%M %p %z"
-
-post:
-  long: "%b %e, %Y"
-  short: "%b %e"
+date_format:
+  tooltip: "%a, %e %b, %Y, %l:%M %p"
+  post:
+    long: "%e %b, %Y"
+    short: "%e %b"
+    archive_month: "%b"
