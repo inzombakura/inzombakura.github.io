@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+      @import url('https://fonts.googleapis.com/css?family=Satisfy');
+      @import: url('<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> ');
+
+      * {
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      body {
+        margin-top: 40px;
+        background: rgb(0,164,255);
+      }
+
+      .title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 40px;
+        font-family: Satisfy;
+      }
+
+      .container {
+        width: 700px;
+        margin: auto;
+        text-align: center;
+        background: #fff;
+        padding: 2em;
+        border-radius: 17px;
+      }
+
+      input[type=range] {
+        width: 100px;
+      }
+
+      label {
+        position: relative;
+        top: 20px;
+        left: 75px;
+      }
+
+      #background {
+        width: 100px;
+        height: 100px;
+        background: #000;
+        margin: 50px auto 0 auto;
+      }
+
+      #colorres {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      #degres {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        text-align: center;
+      }
+      #canvas{
+        width:640px;
+        height:360px;
+        background: #000;
+      }
+		</style>
+	</head>
+	<body>
+    <h1 class="title">Drawing With Light</h1>
+    <div class="container">
+      <label for="red">R</label>
+      <input id="red" type="range" min="0" max="255" value="0">
+      <label for="green">G</label>
+      <input id="green" type="range" min="0" max="255" value="0">
+      <label for="blue">B</label>
+      <input id="blue" type="range" min="0" max="255" value="0">
+      <label for="opacity">A</label>
+      <input id="opacity" type="range" min="1" max="10" value="10">
+       <label style="position: center">DEG</label>
+      <input id="degrees" type="range" min="1" max="179" value="45">
+      <div id="background"></div>
+      <div id="colorres">rgba(0,0,0,1)</div>
+      <div id="degres">45 degrees</div>
+      <canvas id="canvas" width="640" height="360"></canvas>
+    </div>
+	</body>
+</html>
+<script>
+const fuzzyRadius = 10;
+var red = document.getElementById('red');
+var blue = document.getElementById('blue');
+var green = document.getElementById('green');
+var op = document.getElementById('opacity');
+var deg = document.getElementById('degrees');
+var colorOutput = document.getElementById('colorres');
+var degreeOutput = document.getElementById('degres');
+var bg = document.getElementById('background');
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var backCanvas = document.createElement('canvas');
+backCanvas.width = canvas.width;
+backCanvas.height = canvas.height;
+var backCtx = backCanvas.getContext('2d');
+var light = 'rgba(0,0,0,1)';
+var updateCanvas = true;
+var range = Math.PI / 2;
+var drawSight = false;
+// Location of first mouse position
+var MouseStart = {
+	x: canvas.width/2,
+	y: canvas.height/2
+};
+
+// Location of current mouse position
+var Mouse = {
+	x: canvas.width/2,
+	y: canvas.height/2
+};
+
+// LINE SEGMENTS
+var segments = [
+	// Border
+	{a:{x:0,y:0}, b:{x:640,y:0}},
+	{a:{x:640,y:0}, b:{x:640,y:360}},
+	{a:{x:640,y:360}, b:{x:0,y:360}},
+	{a:{x:0,y:360}, b:{x:0,y:0}},
+	// Polygon #1
+	{a:{x:100,y:150}, b:{x:120,y:50}},
+	{a:{x:120,y:50}, b:{x:200,y:80}},
+	{a:{x:200,y:80}, b:{x:140,y:210}},
+	{a:{x:140,y:210}, b:{x:100,y:150}},
+	// Polygon #2
+	{a:{x:100,y:200}, b:{x:120,y:250}},
+	{a:{x:120,y:250}, b:{x:60,y:300}},
+	{a:{x:60,y:300}, b:{x:100,y:200}},
+	// Polygon #3
+	{a:{x:200,y:260}, b:{x:220,y:150}},
+	{a:{x:220,y:150}, b:{x:300,y:200}},
+	{a:{x:300,y:200}, b:{x:350,y:320}},
+	{a:{x:350,y:320}, b:{x:200,y:260}},
+	// Polygon #4
+	{a:{x:340,y:60}, b:{x:360,y:40}},
+	{a:{x:360,y:40}, b:{x:370,y:70}},
+	{a:{x:370,y:70}, b:{x:340,y:60}},
+	// Polygon #5
+	{a:{x:450,y:190}, b:{x:560,y:170}},
+	{a:{x:560,y:170}, b:{x:540,y:270}},
+	{a:{x:540,y:270}, b:{x:430,y:290}},
+	{a:{x:430,y:290}, b:{x:450,y:190}},
+	// Polygon #6
+	{a:{x:400,y:95}, b:{x:580,y:50}},
+	{a:{x:580,y:50}, b:{x:480,y:150}},
+	{a:{x:480,y:150}, b:{x:400,y:95}}
+];
+
+// Grab all the input fields
+var inputAll = document.querySelectorAll('input[type="range"]');
+// Loop through all of the input fields to listen for each input slide
+for (i = 0; i < inputAll.length; i++) {
+  // Listen for the change/slide on each input
+  inputAll[i].addEventListener('input', function(r, g, b, o, d){
+    // Get the value for the input fields
+      r = red.value;
+      b = blue.value;
+      g = green.value;
+      o = op.value;
+      d = deg.value;
+      range = d * (Math.PI/180);
+      if (o == 10) {
+        light = 'rgba(' + r + ',' + g + ',' + b + ',1)';
+      } else {
+        light = 'rgba(' + r + ',' + g + ',' + b + ',' + '.' + o + ')';
+      }
+      bg.style.backgroundColor = light;
+      bg.style.opacity = o;
+      colorOutput.innerHTML = light;
+      degreeOutput.innerHTML = d + ' degrees';
+   });
+}
+
+canvas.onmousemove = function(event){
+  const rect = canvas.getBoundingClientRect();
+  Mouse.x = event.clientX - rect.left;
+	Mouse.y = event.clientY - rect.top;
+  //var direction = Math.atan2(Mouse.y-Character.y,Mouse.x-Character.x);
+  updateCanvas = true;
+};
+
+canvas.addEventListener("mousedown", function(e)
+  {
+    let rect = canvas.getBoundingClientRect();
+    MouseStart.x = event.clientX - rect.left;
+    MouseStart.y = event.clientY - rect.top;
+    drawSight = true;
+    updateCanvas = true;
+  });
+
+canvas.addEventListener("mouseup", function(e)
+  {
+    drawSight = false;
+    updateCanvas = true;
+  });
+
+// Find intersection of RAY & SEGMENT
+function getIntersection(ray,segment){
+
+	// RAY in parametric: Point + Delta*T1
+	var r_px = ray.a.x;
+	var r_py = ray.a.y;
+	var r_dx = ray.b.x-ray.a.x;
+	var r_dy = ray.b.y-ray.a.y;
+
+	// SEGMENT in parametric: Point + Delta*T2
+	var s_px = segment.a.x;
+	var s_py = segment.a.y;
+	var s_dx = segment.b.x-segment.a.x;
+	var s_dy = segment.b.y-segment.a.y;
+
+	// Are they parallel? If so, no intersect
+	var r_mag = Math.sqrt(r_dx*r_dx+r_dy*r_dy);
+	var s_mag = Math.sqrt(s_dx*s_dx+s_dy*s_dy);
+	if(r_dx/r_mag==s_dx/s_mag && r_dy/r_mag==s_dy/s_mag){
+		// Unit vectors are the same.
+		return null;
+	}
+	var T2 = (r_dx*(s_py-r_py) + r_dy*(r_px-s_px))/(s_dx*r_dy - s_dy*r_dx);
+	var T1 = (s_px+s_dx*T2-r_px)/r_dx;
+
+	// Must be within parametic whatevers for RAY/SEGMENT
+	if(T1<0) return null;
+	if(T2<0 || T2>1) return null;
+
+	// Return the POINT OF INTERSECTION
+	return {
+		x: r_px+r_dx*T1,
+		y: r_py+r_dy*T1,
+		param: T1
+	};
+
+}
+
+function normalizeAngle(x) {
+  return (x > 0 ? x : (2*Math.PI + x));
+}
+
+function getSightPolygon(sightX,sightY){
+	// Get all unique points
+	var points = (function(segments){
+		var a = [];
+		segments.forEach(function(seg){
+			a.push(seg.a,seg.b);
+		});
+		return a;
+	})(segments);
+	var uniquePoints = (function(points){
+		var set = {};
+		return points.filter(function(p){
+			var key = p.x+","+p.y;
+			if(key in set){
+				return false;
+			}else{
+				set[key]=true;
+				return true;
+			}
+		});
+	})(points);
+  var direction = Math.atan2(Mouse.y-MouseStart.y,Mouse.x-MouseStart.x);
+  if (direction >= Math.PI / 2 || direction <= -Math.PI / 2) {
+    direction = normalizeAngle(direction);
+  }
+  var startAngle = direction - range / 2;
+  var endAngle = direction + range / 2;
+	// Get all angles
+	var uniqueAngles = [];
+  uniqueAngles.push(startAngle);
+  uniqueAngles.push(endAngle);
+	for(var j=0;j<uniquePoints.length;j++){
+		var uniquePoint = uniquePoints[j];
+		var angle = Math.atan2(uniquePoint.y-sightY,uniquePoint.x-sightX);
+    if (direction >= Math.PI / 2 || direction <= -Math.PI / 2) {
+      angle = normalizeAngle(angle);
+    }
+    if (angle >= startAngle && angle <= endAngle) {
+		  uniqueAngles.push(angle-0.00001,angle,angle+0.00001);
+    }
+	}
+
+	// RAYS IN ALL DIRECTIONS
+	var intersects = [];
+  intersects.push({x:MouseStart.x,y:MouseStart.y});
+	for(var j=0;j<uniqueAngles.length;j++){
+		var angle = uniqueAngles[j];
+    if (angle == Math.PI / 2 || angle == -1 * Math.PI / 2 ) {
+      angle += 0.00001;
+    }
+
+		// Calculate dx & dy from angle
+		var dx = Math.cos(angle);
+		var dy = Math.sin(angle);
+
+		// Ray from center of screen to mouse
+		var ray = {
+			a:{x:sightX,y:sightY},
+			b:{x:sightX+dx,y:sightY+dy}
+		};
+
+		// Find CLOSEST intersection
+		var closestIntersect = null;
+		for(var i=0;i<segments.length;i++){
+			var intersect = getIntersection(ray,segments[i]);
+			if(!intersect) continue;
+			if(!closestIntersect || intersect.param<closestIntersect.param){
+				closestIntersect=intersect;
+			}
+		}
+
+		// Intersect angle
+		if(!closestIntersect) continue;
+		closestIntersect.angle = angle;
+
+		// Add to list of intersects
+		intersects.push(closestIntersect);
+
+	}
+
+	// Sort intersects by angle
+	intersects = intersects.sort(function(a,b){
+		return a.angle-b.angle;
+	});
+
+	// Polygon is intersects, in order of angle
+	return intersects;
+
+}
+
+function drawPolygon(polygon,ctx,fillStyle){
+	ctx.fillStyle = fillStyle;
+	ctx.beginPath();
+	ctx.moveTo(polygon[0].x,polygon[0].y);
+	for(var i=1;i<polygon.length;i++){
+		var intersect = polygon[i];
+		ctx.lineTo(intersect.x,intersect.y);
+	}
+	ctx.fill();
+}
+
+// DRAW LOOP
+window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
+function drawLoop(){
+    requestAnimationFrame(drawLoop);
+    if(updateCanvas){
+    	draw();
+    	updateCanvas = false;
+    }
+}
+window.onload = function(){
+	drawLoop();
+};
+
+// DRAWING
+function draw(){
+
+	// Clear canvas
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(backCanvas, 0,0);
+	// Draw segments
+	ctx.strokeStyle = "#999";
+	for(var i=0;i<segments.length;i++){
+		var seg = segments[i];
+		ctx.beginPath();
+		ctx.moveTo(seg.a.x,seg.a.y);
+		ctx.lineTo(seg.b.x,seg.b.y);
+		ctx.stroke();
+	}
+	// Sight Polygon
+  if (drawSight && ! (Mouse.x == MouseStart.x && Mouse.y == MouseStart.y)) {
+    var polygon = getSightPolygon(MouseStart.x,MouseStart.y);
+    drawPolygon(polygon,ctx,light);
+    backCtx.drawImage(canvas, 0,0);
+  }
+	// Draw mouse dots
+  if (drawSight) {
+    ctx.fillStyle = "#dd3838";
+    ctx.beginPath();
+      ctx.arc(Mouse.x, Mouse.y, 2, 0, 2*Math.PI, false);
+      ctx.fill();
+    for(var angle=0;angle<Math.PI*2;angle+=(Math.PI*2)/10){
+      var dx = Math.cos(angle)*fuzzyRadius;
+      var dy = Math.sin(angle)*fuzzyRadius;
+      ctx.beginPath();
+      ctx.arc(Mouse.x+dx, Mouse.y+dy, 2, 0, 2*Math.PI, false);
+      ctx.fill();
+    }
+  } else {
+    // Draw start mouse dots
+    ctx.fillStyle = "#2403fc";
+    ctx.beginPath();
+      ctx.arc(Mouse.x, Mouse.y, 2, 0, 2*Math.PI, false);
+      ctx.fill();
+    for(var angle=0;angle<Math.PI*2;angle+=(Math.PI*2)/10){
+      var dx = Math.cos(angle)*fuzzyRadius;
+      var dy = Math.sin(angle)*fuzzyRadius;
+      ctx.beginPath();
+      ctx.arc(Mouse.x+dx, Mouse.y+dy, 2, 0, 2*Math.PI, false);
+      ctx.fill();
+    }
+  }
+}
+
+</script>
